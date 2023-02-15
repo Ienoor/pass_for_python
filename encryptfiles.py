@@ -1,14 +1,6 @@
 import json
 import os
-
-import gnupg
-from dotenv import load_dotenv
-
-gpg = gnupg.GPG(gnupghome="C:/Users/vinog/AppData/Roaming/gnupg")
-
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
-if os.path.exists(dotenv_path):
-    load_dotenv(dotenv_path)
+from config import gpg
 
 
 def encrypt(name: str, login: str, password: str, url: str):
@@ -20,9 +12,9 @@ def encrypt(name: str, login: str, password: str, url: str):
                 "url": url
             }
         }, f)
-    gpg.encrypt_file(f, recipients=[os.getenv('recipients')], output=f"./store/{name}.gpg")
-    # os.remove("tmp.json")
+    gpg.encrypt_file(f"{name}.json", recipients=os.getenv("RECIPIENT"), output=f"./store/{name}.gpg")
+    os.remove(f"{name}.json")
 
 
 if __name__ == '__main__':
-    encrypt("ya.com", "tv@kmk.ru", "password", "https://mail.ya.com/")
+    encrypt("sad.com", "tv@kmk.ru", "password", "https://vk.com/")

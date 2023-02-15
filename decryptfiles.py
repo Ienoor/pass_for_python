@@ -1,20 +1,17 @@
 import json
 import os
-
-import gnupg
-
-gpg = gnupg.GPG(gnupghome="C:/Users/vinog/AppData/Roaming/gnupg")
+from config import gpg
 
 
 # ToDo finish decrypting files
 def decrypt(path: str) -> dict:
     encrypt_files = os.listdir(path)
+    data = {}
     for file in encrypt_files:
-        ...
-    print(encrypt_files)
-    # data = gpg.decrypt_file(path, passphrase=os.getenv('password'))
-    # return json.loads(str(data))
+        file_name = '.'.join(file.split('.')[0:-1])
+        data.update(json.loads(str(gpg.decrypt_file(f"store/{file_name}.gpg", passphrase=os.getenv("PASSWORD")))))
+
+    return data
 
 
-if __name__ == '__main__':
-    decrypt('./store')
+print(decrypt('./store'))

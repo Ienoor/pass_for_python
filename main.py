@@ -1,10 +1,7 @@
-import os
-
 import qargs
 
-import decryptfiles
-from password_output import draw
 import search
+from display import displaying_all_passwords, password_display
 from encryptfiles import encrypt
 
 
@@ -20,10 +17,9 @@ def main():
     if args.add:
         encrypt()
     elif args.search:
-        search.search()
+        password_display()
     elif args.show:
-
-        print(decryptfiles.decrypt(os.getenv("PATH_PASSWORD_STORE")))
+        displaying_all_passwords()
 
 
 if __name__ == '__main__':

@@ -4,9 +4,9 @@ import decryptfiles
 
 
 def search():
-    password = decryptfiles.decrypt(os.getenv("PATH_PASSWORD_STORE"))
+    data = decryptfiles.decrypt(os.getenv("PATH_PASSWORD_STORE"))
     name = input('Имя искомого пароля: ')
-    return password[name]
+    return data[name]
 
 
 if __name__ == '__main__':

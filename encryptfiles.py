@@ -1,14 +1,21 @@
 import json
 import os
+
 from config import gpg
 
 
-def encrypt(name: str, login: str, password: str, url: str):
+def encrypt():
+    name = input('Введите название: ')
+    account = input('Введите аккаунт: ')
+    password = input('Введите пароль: ')
+    url = input('Url: ')
+    if not os.path.isdir("store"):
+        os.mkdir('store')
     with open(f"{name}.json", 'w') as f:
         json.dump({
             f"{name}": {
-                f"{login}": login,
-                f"{password}": password,
+                "account": account,
+                "password": password,
                 "url": url
             }
         }, f)
@@ -17,4 +24,4 @@ def encrypt(name: str, login: str, password: str, url: str):
 
 
 if __name__ == '__main__':
-    encrypt("sad.com", "tv@kmk.ru", "password", "https://vk.com/")
+    encrypt()
